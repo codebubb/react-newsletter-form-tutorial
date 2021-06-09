@@ -11,7 +11,7 @@ const handler = async (event, context) => {
             body: JSON.stringify({ message: 'Please provide an email address.' }),
         }
     }
-    console.log('adding emaila ddress: ', email_address)
+
     try {
         const payload = {
             email_address,
@@ -28,6 +28,7 @@ const handler = async (event, context) => {
             body: JSON.stringify(data),
         }
     } catch (error) {
+        console.log(error);
         return {
             statusCode: 500,
             body: JSON.stringify(error),

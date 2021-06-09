@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import Label from "./Label";
 import axios from "axios";
@@ -20,7 +20,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignUpForm = () => {
-  const submitForm = async (values: FormValues) => {
+  const submitForm = async (values: FormValues, formik: FormikHelpers<FormValues>) => {
     console.log(values);
     const { firstName, lastName, email } = values;
     try {
@@ -34,6 +34,7 @@ const SignUpForm = () => {
 
       await axios.post('/.netlify/functions/add-email-subscriber', payload);
       alert('Contact details added successfully.');
+      formik.resetForm();
     } catch (error) {
       alert(error.message);
     }
